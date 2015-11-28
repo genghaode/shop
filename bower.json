@@ -1,0 +1,25 @@
+{
+  "name": "shop",
+  "description": "商城",
+  "main": "index.js",
+  "authors": [
+    "gengzhuo"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "nodejs"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-router": "~0.2.15"
+  }
+}

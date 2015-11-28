@@ -1,0 +1,17 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "description": "商城",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "gengzhuo",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
