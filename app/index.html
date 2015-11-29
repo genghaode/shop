@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<ul ng-controller="NavBarCtrl">
+  <li ng-show="me" ng-class="{active:isActive('/home')}">
+    <a href="#/home">首页</a>
+  </li>
+  <li ng-hide="me" ng-class="{actice:isActive('/users/reg')}">
+    <a href="#/users/reg">注册</a>
+  </li>
+  <li ng-hide="me" ng-class="{active:isActive('/users/login')}">
+    <a href="#/users/login">登录</a>
+  </li>
+  <li ng-show="me" ng-class="{active:isActive('/wares/list')}">
+    <a href="#/wares/list">浏览商品</a>
+  </li>
+  <li ng-show="me" ng-class="{active:isActive('/wares/addmin/list')}">
+    <a href="#/wares/admin/list">添加商品</a>
+  </li>
+  <li ng-show="me" ng-class="{active:isActive('/carts/list')}">
+    <a href="#/carts/list">购物车</a>
+  </li>
+  <li>
+    <a href="#" ng-click="logout()">退出</a>
+  </li>
+</ul>
+<div ng-view></div>
+</body>
+<script src="./public/lib/angular/angular.js"></script>
+<script src="./public/lib/angular-route/angular-route.js"></script>
+<script src="./public/js/index.js"></script>
+</html>
