@@ -1,3 +1,33 @@
-<div>
-  reg
-</div>
+<form novalidate name="userform">
+  <div ng-show="{'has-error': userfrom.username.$dirty && userform.username.$invalid}">
+    中文用户名：<input type="text" name="username" ng-model="user.username" ng-pattern="/[\u4e00-\u9fa5]/" required>
+    <div ng-show="userform.username.$dirty && userform.username.$invalid">
+      <span ng-show="userform.$error.required">请输入用户名</span>
+      <span ng-show="userform.username.$error.pattern">请输入中文</span>
+    </div>
+  </div>
+  <div ng-class="{'has-error': userform.email.$dirty && userform.email.$invalid}">
+    邮箱<input type="email" name="email" ng-model="user.email" required >
+    <div ng-show="userform.email.$dirty && $userform.email.$invalid">
+      <span ng-show="userform.email.$error.required">请输入邮箱</span>
+      <span ng-show="userform.email.$error.email">邮箱格式不正确</span>
+    </div>
+  </div>
+  <div ng-class="{'has-error': userform.password.$dirty && userform.password.$invalid}">
+    密码<input type="password" name="password" ng-model="user.password" ng-minlength="6" ng-maxlength="12" required>
+    <div ng-show="userform.password.$dirty && userform.password.$invalid">
+      <span ng-show="userform.password.$error.required">请输入密码</span>
+      <span ng-show="userform.password.$error.minlength">最少6位</span>
+      <span ng-show="userform.password.$error.maxlength">最大12位</span>
+    </div>
+  </div>
+  <div ng-class="{'has-error': userform.repassword.$dirty && userform.repassword.$invalid}">
+    重复密码<input type="password" name="repassword" ng-model="user.repassword" ng-minlength="6" ng-maxlength="12" required>
+    <div ng-show="userform.repassword.$dirty && userform.repassword.$invalid">
+      <span ng-show="userform.repassword.$error.required">请输入密码</span>
+      <span ng-show="userform.repassword.$error.minlength">最少6位</span>
+      <span ng-show="userform.repassword.$error.maxlength">最大12位</span>
+    </div>
+  </div>
+  <button ng-click="save()" ng-disabled="userform.$invalid || user.password != user.repassword">注册</button>
+</form>

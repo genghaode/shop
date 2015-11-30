@@ -1,19 +1,19 @@
 var app = angular.module('appModule', ['ngRoute']);
 app.run(function($rootScope, $location, $http){
-  //$http({
-  //  url: '/users/validate',
-  //  method: 'post'
-  //}).success(function(data){
-  //  if(data.code == 1){
-  //    $rootScope.me = user;
-  //    $location.path('/');
-  //  }else {
-  //    $location.path('/users/login');
-  //  }
-  //}).error(function(err){
-  //  console.log(err);
-  //});
-  $rootScope.me = 'geng';
+  $http({
+    url: '/users/validate',
+    method: 'post'
+  }).success(function(data){
+    if(data.code == 1){
+      $rootScope.me = data.user;
+      $location.path('/');
+    }else {
+      $location.path('/users/login');
+    }
+  }).error(function(err){
+    console.log(err);
+  });
+
 });
 app.config(function($routeProvider){
   $routeProvider.when('/', {
@@ -38,14 +38,45 @@ app.config(function($routeProvider){
     redirectTo: '/users/login'
   });
 });
-app.controller('NavBarCtrl', function($scope, $location){
-
+app.controller('NavBarCtrl', function($rootScope, $scope, $location, $http){
+  $scope.isActive = function(path){
+    return path == $location.path();
+  };
+  $scope.logout = function(){
+    $http({
+      url: 'users/logout',
+      method: 'post'
+    }).success(function(data){
+      if(data.code == 1){
+        $rootScope.me = null;
+        $location.path('/users/login');
+      }
+    });
+  };
 });
-app.controller('HomeCtrl', function(){
-
+app.controller('HomeCtrl', function($scope){
+  $scope.title = '商城';
 });
-app.controller('RegCtrl', function(){
+app.controller('RegCtrl', function($rootScope, $scope, $http, $location){
+ $scope.title = '注册';
+  $scope.save = function(){
+    $http({
+      url: '/users/reg',
+      method: 'post',
+      data: $scope.user
+    }).success(function(data){
+      if(data.code == 1){
+        $rootScope.me = data.user;
+        $location.path('/');
+      }else {
+        console.log(data.msg);
+      }
 
+    }).error(function(data){
+      console.log(data);
+      $location.path('users/reg');
+    })
+  }
 });
 app.controller('LoginCtrl', function(){
 
