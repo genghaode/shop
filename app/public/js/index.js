@@ -27,7 +27,7 @@ app.config(function($routeProvider){
     controller: 'LoginCtrl'
   }).when('/wares/admin/list', {
     templateUrl: 'pages/wares/admin/list.html',
-    controller: 'WaresACtrl'
+    controller: 'WaresCtrl'
   }).when('/wares/list', {
     templateUrl: 'pages/wares/list.html',
     controller: 'WaresCtrl'
@@ -99,12 +99,76 @@ app.controller('LoginCtrl', function($rootScope, $scope, $location, $http){
     });
   };
 });
-app.controller('WaresACtrl', function(){
-
+app.controller('WaresCtrl', function($scope, $http){
+  $scope.ware = {};
+  $scope.wares = [];
+  $http({
+    url: '/wares/list',
+    method: 'get'
+  }).success(function(data){
+    if(data.code == 1){
+      $scope.wares = data.wares;
+    }else {
+      console.log(data.msg);
+    }
+  });
+  $scope.save = function(){
+    $http({
+      url: '/wares/add',
+      method: 'post',
+      data: $scope.ware
+    }).success(function(data){
+      if(data.code == 1){
+        $scope.wares.push(data.ware);
+      }else {
+        console.log(data.msg);
+      }
+    });
+  };
+  $scope.addCart = function(wareId){
+    $http({
+      url: '/wares/addCart/'+wareId,
+      method: 'get'
+    }).success(function(data){
+      if(data.code == 1){
+        console.log(data.cart);
+      }else {
+        console.log(data.msg);
+      }
+    });
+  };
 });
-app.controller('WaresCtrl', function(){
-
-});
-app.controller('CartsCtrl', function(){
+app.controller('CartsCtrl', function($scope, $http){
+  $scope.carts = [];
+  $http({
+    url: '/carts/list',
+    method: 'get'
+  }).success(function(data){
+    if(data.code == 1){
+      $scope.carts = data.carts;
+      console.log(data.carts);
+    }else {
+      console.log(data.msg);
+    }
+  });
+  $scope.delete = function(cartId, index){
+    $http({
+      url: '/carts/delete/'+cartId,
+      method: 'get'
+    }).success(function(data){
+      if(data.code == 1){
+        $scope.carts.splice(index, 1);
+      }else {
+        console.log(data.msg);
+      }
+    });
+  };
+  $scope.total = function(){
+    var total = 0;
+    $scope.carts.forEach(function(cart){
+      total += cart.num*cart.ware.price;
+    });
+    return total;
+  };
 
 });

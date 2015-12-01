@@ -6,8 +6,8 @@
 </head>
 <body>
 <ul ng-controller="NavBarCtrl">
-  <li ng-show="me" ng-class="{active:isActive('/home')}">
-    <a href="#/home">首页</a>
+  <li ng-show="me" ng-class="{active:isActive('/')}">
+    <a href="#/">首页</a>
   </li>
   <li ng-hide="me" ng-class="{actice:isActive('/users/reg')}">
     <a href="#/users/reg">注册</a>
@@ -24,7 +24,7 @@
   <li ng-show="me" ng-class="{active:isActive('/carts/list')}">
     <a href="#/carts/list">购物车</a>
   </li>
-  <li>
+  <li ng-show="me">
     <a href="#" ng-click="logout()">退出</a>
   </li>
 </ul>

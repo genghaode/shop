@@ -1,3 +1,24 @@
 <div>
-  waresAdminList
+  <div>
+    名称：<input type="text" ng-model="ware.name"><br>
+    价格：<input type="text" ng-model="ware.price"><br>
+    图片链接：<input type="text" ng-model="ware.img"><br>
+    <button ng-click="save()">增加</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>价格</th>
+        <th>图片</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="ware in wares">
+        <td>{{ware.name}}</td>
+        <td>{{ware.price}}</td>
+        <td><img ng-src="{{ware.img}}" alt=""></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

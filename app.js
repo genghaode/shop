@@ -8,13 +8,15 @@ var MongoStore = require('connect-mongo')(session);
 var path = require('path');
 var settings = require('./settings');
 
-//var routes = require('./routes/index');
+var routes = require('./routes/index');
 var users = require('./routes/users');
-//var wares = require('./routes/wares');
-//var carts = require('./routes/carts');
+var wares = require('./routes/wares');
+var carts = require('./routes/carts');
 
 var app = express();
 app.use(express.static('app'));
+
+
 app.use(favicon(path.join(__dirname, 'app', 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -34,10 +36,10 @@ app.use(session({
   })
 }));
 
-//app.use('/', routes);
+app.use('/', routes);
 app.use('/users', users);
-//app.use('/wares', wares);
-//app.use('/carts', carts);
+app.use('/wares', wares);
+app.use('/carts', carts);
 
 app.use(function(req, res, next){
   var err = new Error('Not Found');

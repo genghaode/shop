@@ -1,3 +1,8 @@
 <div>
-  waresList
+  <div ng-repeat="ware in wares">
+    <img ng-src="{{ware.img}}" alt="">
+    <h3>{{ware.name}}</h3>
+    <span>￥{{ware.price}}</span><br>
+    <button ng-click="addCart(ware._id)">添加到购物车</button>
+  </div>
 </div>

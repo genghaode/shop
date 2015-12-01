@@ -1,3 +1,11 @@
 <div>
-  cartsList
+  <div ng-repeat="cart in carts track by $index">
+    <img ng-src="{{cart.ware.img}}" alt="">
+    <h3>{{cart.ware.name}}</h3>
+    单价：<span>￥{{cart.ware.price}}</span><br>
+    数量：<input type="text" ng-model="cart.num"><br>
+    总价：<span>￥{{cart.num*cart.ware.price}}</span><br>
+    <button ng-click="delete(cart._id, $index)">删除</button>
+  </div>
+  <div>总金额：￥{{total()}}</div>
 </div>
