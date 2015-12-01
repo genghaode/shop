@@ -69,17 +69,35 @@ app.controller('RegCtrl', function($rootScope, $scope, $http, $location){
         $rootScope.me = data.user;
         $location.path('/');
       }else {
+        $location.path('users/reg');
         console.log(data.msg);
       }
 
     }).error(function(data){
       console.log(data);
-      $location.path('users/reg');
+
     })
   }
 });
-app.controller('LoginCtrl', function(){
-
+app.controller('LoginCtrl', function($rootScope, $scope, $location, $http){
+  $scope.title = '登录';
+  $scope.save = function(){
+    $http({
+      url: '/users/login',
+      method: 'post',
+      data: $scope.user
+    }).success(function(data){
+      if(data.code == 1){
+        $rootScope.me = data.user;
+        $location.path('/');
+      }else {
+        $location.path('/users/login');
+        console.log('登录失败');
+      }
+    }).error(function(data){
+      console.log(data);
+    });
+  };
 });
 app.controller('WaresACtrl', function(){
 

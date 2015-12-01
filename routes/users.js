@@ -35,5 +35,20 @@ router.post('/logout', function(req, res){
   return res.json({code: 1, msg: '退出成功'});
 });
 
+router.post('/login', function(req, res){
+  var user = req.body;
+  user.password = myUtil.md5(user.password);
+  Model('User').findOne(user, function(err, user){
+    if(err){
+      return res.json({code: 0, msg: '登录失败'});
+    }
+    if(user){
+      req.session.user = user;
+      return res.json({code: 1, user: user});
+    }else {
+      return res.json({code: 0, msg: '登录失败'});
+    }
+  });
+});
 
 module.exports = router;
